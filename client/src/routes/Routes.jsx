@@ -6,6 +6,8 @@ import TravelTips from "../pages/TravelTips/TravelTips";
 import Signin from "../pages/Signin/Signin";
 import Signup from "../pages/Signup/Signup";
 import DivisionDetails from "../pages/DivisionDetails/DivisionDetails";
+import PrivateRoutes from "./PrivateRoutes";
+import AddBeauties from "../pages/AddBeauties/AddBeauties";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,8 +23,20 @@ const router = createBrowserRouter([
         element: <TravelTips />,
       },
       {
+        path: "/add-beauties",
+        element: (
+          <PrivateRoutes>
+            <AddBeauties />
+          </PrivateRoutes>
+        ),
+      },
+      {
         path: "/divisions/:name",
-        element: <DivisionDetails />,
+        element: (
+          <PrivateRoutes>
+            <DivisionDetails />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/signin",

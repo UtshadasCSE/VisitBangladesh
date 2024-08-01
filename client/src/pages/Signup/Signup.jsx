@@ -3,12 +3,20 @@ import { MdEmail } from "react-icons/md";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Signup = () => {
+  const { loading, user, createUser } = useAuth();
   const [show, setShow] = useState(true);
   const [showConfiirm, setShowConfirm] = useState(true);
+  const navigate = useNavigate();
   const {
+    reset,
     register,
     handleSubmit,
     watch,
@@ -28,18 +36,42 @@ const Signup = () => {
   // get data from form
   const onSubmit = (data) => {
     console.log(data);
+    createUser(data.email, data.password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Hello`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+        reset();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error(errorCode, errorMessage);
+        // ..
+      });
   };
+  // force user go to home when login and try to signup
+  useEffect(() => {
+    navigate("/");
+  }, [navigate, user]);
+  if (user || loading) return;
   return (
-    <div className=" h-screen flex flex-col justify-center items-center gap-3 font-popins bg-[#E63946]">
-      <div className=" bg-[#007f4e] shadow-md rounded-lg p-4">
+    <div className=" h-full py-24 flex flex-col justify-center items-center gap-3 font-popins bg-[#E63946] ">
+      <div className=" bg-[#007f4e] shadow-md rounded-lg p-4 max-sm:w-11/12 mx-auto">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-2 p-9  max-sm:w-11/12 mx-auto"
+          className="flex flex-col gap-2 "
         >
-          <h4 className="text-center text-white">Sign Up</h4>
+          <h4 className="text-center text-white text-2xl">Sign Up</h4>
           <p className="lg:w-4/5 mx-auto lg:text-center text-white">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non,
-            rerum?
+            Join now and explore beauty of the bangladesh
           </p>
           <label className="input input-bordered flex items-center gap-2">
             <FaUser />
@@ -66,7 +98,7 @@ const Signup = () => {
           <label className="input input-bordered flex items-center gap-2">
             <MdEmail />
             <input
-              {...register("emaiil", { required: true })}
+              {...register("email", { required: true })}
               type="email"
               className="grow"
               placeholder="Email"
@@ -142,11 +174,22 @@ const Signup = () => {
               Sign Up
             </button>
           </label>
+          <div className="flex gap-2 text-white">
+            <span>Already have an account?</span>
+            <Link to={"/signin"} className="hover:underline font-semibold">
+              Sign in
+            </Link>
+          </div>
         </form>
-        <div>
-          <h2>Hello</h2>
+        <div className="divider text-white">OR</div>
+        <div className=" w-full font-popins">
+          <button className="btn btn-outline  w-full text-white font-semibold">
+            <FcGoogle />
+            Continue with google
+          </button>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

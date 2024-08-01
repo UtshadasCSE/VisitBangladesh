@@ -1,14 +1,25 @@
-// import React from 'react';
+import { Navigate, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import HashLoader from "react-spinners/HashLoader";
 
-// const PrivateRoutes = ({children}) => {
-//     if(user){
+const PrivateRoutes = ({ children }) => {
+  const { loading, user } = useAuth();
+  const location = useLocation();
+  if (loading) {
+    return (
+      <>
+        <div className="h-screen flex justify-center items-center">
+          <HashLoader />
+        </div>
+      </>
+    );
+  }
+  if (user) {
+    return children;
+  }
+  return (
+    <Navigate to={"/signin"} state={{ from: location }} replace></Navigate>
+  );
+};
 
-//     }
-//     return (
-//         <div>
-
-//         </div>
-//     );
-// };
-
-// export default PrivateRoutes;
+export default PrivateRoutes;

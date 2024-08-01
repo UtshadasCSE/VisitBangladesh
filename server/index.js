@@ -29,6 +29,7 @@ async function run() {
     // await client.connect();
     const placeCollection = client.db("VisitBD").collection("places");
     const divisionCollection = client.db("VisitBD").collection("places");
+    const mustdoCollection = client.db("VisitBD").collection("mustdo");
     /* ************Server API Start***************** */
     // get division from db
     app.get("/divisions", async (req, res) => {
@@ -40,6 +41,11 @@ async function run() {
     app.get("/divisions/:name", async (req, res) => {
       const name = req.params.name;
       const result = await divisionCollection.findOne({ name: name });
+      res.send(result);
+    });
+    // get mustdo data from db
+    app.get("/mustdo", async (req, res) => {
+      const result = await mustdoCollection.find().toArray();
       res.send(result);
     });
 

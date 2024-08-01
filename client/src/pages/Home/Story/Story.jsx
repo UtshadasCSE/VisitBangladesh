@@ -30,10 +30,6 @@ const Story = () => {
       </>
     );
   }
-  // handle division details using id
-  const handleDivisionDetalis = (id) => {
-    console.log(id);
-  };
 
   return (
     <div className="container max-sm:w-4/5 mx-auto">
@@ -53,9 +49,8 @@ const Story = () => {
         className="mySwiper"
       >
         {places.map((place) => (
-          <SwiperSlide key={place._id}>
+          <SwiperSlide key={place._id} className="flex flex-col">
             <img src={place.imageURL} className="h-full" />
-
             <Link
               to={`/divisions/${place.name}`}
               className="font-playwrite font-semibold text-lg text-center py-2 btn w-full border-t-0 hover:bg-[#d74a49] duration-700 hover:text-white"

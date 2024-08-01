@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div className="">
       <hr />
-      <footer className="pt-8 font-popins  ">
+      <footer className="pt-8 font-popins bg-white  ">
         <div className="container max-sm:w-11/12 mx-auto flex justify-between gap-3 max-sm:flex max-sm:flex-col">
           <div className=" flex max-sm:flex-col justify-between gap-10">
             <div>

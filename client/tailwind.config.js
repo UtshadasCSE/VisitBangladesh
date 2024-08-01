@@ -10,6 +10,7 @@ export default {
       },
       backgroundImage: {
         heroBg: 'url("./src/assets/images/heroBg.jpeg")',
+        mapBg: 'url("./src/assets/images/map.jpg")',
       },
     },
   },
