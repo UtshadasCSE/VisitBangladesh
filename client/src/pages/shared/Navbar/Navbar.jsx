@@ -349,10 +349,10 @@ const Navbar = () => {
                       role="button"
                       className="btn btn-ghost btn-circle avatar"
                     >
-                      <div className="w-10 rounded-full">
+                      <div className="w-10 rounded-full border-2">
                         <img
                           alt="Tailwind CSS Navbar component"
-                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                          src={user?.photoURL}
                         />
                       </div>
                     </div>
@@ -365,6 +365,9 @@ const Navbar = () => {
                       </li>
                       <li>
                         <a>My Blogs</a>
+                      </li>
+                      <li>
+                        <a>My News</a>
                       </li>
                       <li>
                         <a onClick={handleLogoutBtn}>Logout</a>
