@@ -14,7 +14,9 @@ const DivisionDetails = () => {
   const { isLoading, data: division = [] } = useQuery({
     queryKey: ["division"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:3000/divisions/${name}`);
+      const res = await axios.get(`http://localhost:3000/divisions/${name}`, {
+        withCredentials: true,
+      });
       return res.data;
     },
   });

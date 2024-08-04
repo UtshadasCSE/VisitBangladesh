@@ -95,7 +95,7 @@ const Navbar = () => {
                             }
                           >
                             <MdFestival />
-                            Upcomming News
+                            All Blogs
                           </NavLink>
                         </li>
                         <li>
@@ -235,7 +235,7 @@ const Navbar = () => {
                           }
                         >
                           <MdFestival />
-                          Upcomming News
+                          All Blogs
                         </NavLink>
                       </li>
                       <li>

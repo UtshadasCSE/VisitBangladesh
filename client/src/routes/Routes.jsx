@@ -8,6 +8,9 @@ import Signup from "../pages/Signup/Signup";
 import DivisionDetails from "../pages/DivisionDetails/DivisionDetails";
 import PrivateRoutes from "./PrivateRoutes";
 import AddBeauties from "../pages/AddBeauties/AddBeauties";
+import AddBlogs from "../pages/AddBlogs/AddBlogs";
+import Blogs from "../pages/Blogs/Blogs";
+import Bangladesh from "../pages/Bangladesh/Bangladesh";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <Bangladesh />,
       },
       {
         path: "/travel-tips",
@@ -29,6 +36,14 @@ const router = createBrowserRouter([
             <AddBeauties />
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/add-blogs",
+        element: <AddBlogs />,
+      },
+      {
+        path: "blogs",
+        element: <Blogs />,
       },
       {
         path: "/divisions/:name",

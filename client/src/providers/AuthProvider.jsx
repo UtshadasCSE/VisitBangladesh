@@ -5,10 +5,12 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -21,7 +23,13 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
+  // update user info
+  const updateUserInfo = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
   // continue with google
   const googleLogin = () => {
     setLoading(true);
@@ -34,7 +42,11 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   // logout user from  this device
-  const logoutUser = () => {
+  const logoutUser = async () => {
+    const { data } = await axios.get("http://localhost:3000/logout", {
+      withCredentials: true,
+    });
+    console.log(data);
     return signOut(auth);
   };
   // observing the current user
@@ -56,6 +68,7 @@ const AuthProvider = ({ children }) => {
     user,
     googleLogin,
     createUser,
+    updateUserInfo,
     loginUser,
     logoutUser,
   };

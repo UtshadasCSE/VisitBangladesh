@@ -9,7 +9,9 @@ const TabSection = () => {
   const { isLoading, data: mustdo = [] } = useQuery({
     queryKey: ["mustdo"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/mustdo");
+      const res = await axios.get("http://localhost:3000/mustdo", {
+        withCredentials: true,
+      });
       return res.data;
     },
   });
@@ -23,20 +25,22 @@ const TabSection = () => {
     );
   }
   return (
-    <div className="font-popins w-max max-sm:w-4/5 max-sm:mx-auto container">
+    <div className="font-popins w-max max-sm:mx-auto container">
       <Tabs>
-        <TabList>
-          {mustdo?.map((place) => (
-            <Tab key={place}>{place.category}</Tab>
-          ))}
-        </TabList>
+        <div className="max-sm:w-32 ">
+          <TabList>
+            {mustdo?.map((place) => (
+              <Tab key={place}>{place.category}</Tab>
+            ))}
+          </TabList>
+        </div>
         <TabPanel>
           {mustdo
             .filter((match) => match.category === "Architecture")
             .map((info) => (
               <div
                 key={info}
-                className="grid grid-cols-4 max-sm:grid-cols-1 gap-10 py-5 "
+                className="grid grid-cols-4  max-sm:grid-cols-1 gap-10 py-5  "
               >
                 {info.items.map((item) => (
                   <>
@@ -49,7 +53,9 @@ const TabSection = () => {
                         />
                       </figure>
                       <div className="card-body">
-                        <h2 className="card-title">{item.name}</h2>
+                        <h2 className="card-title font-playwrite">
+                          {item.name}
+                        </h2>
                         <p>{item.description}</p>
                         <div className="card-actions justify-end pt-4">
                           <div className="flex justify-between w-full">
@@ -89,7 +95,9 @@ const TabSection = () => {
                         />
                       </figure>
                       <div className="card-body">
-                        <h2 className="card-title">{item.name}</h2>
+                        <h2 className="card-title font-playwrite">
+                          {item.name}
+                        </h2>
                         <p>{item.description}</p>
                         <div className="card-actions justify-end pt-4">
                           <div className="flex justify-between w-full">
@@ -129,7 +137,9 @@ const TabSection = () => {
                         />
                       </figure>
                       <div className="card-body">
-                        <h2 className="card-title">{item.name}</h2>
+                        <h2 className="card-title font-playwrite">
+                          {item.name}
+                        </h2>
                         <p>{item.description}</p>
                         <div className="card-actions justify-end pt-4">
                           <div className="flex justify-between w-full">
@@ -169,7 +179,9 @@ const TabSection = () => {
                         />
                       </figure>
                       <div className="card-body">
-                        <h2 className="card-title">{item.name}</h2>
+                        <h2 className="card-title font-playwrite">
+                          {item.name}
+                        </h2>
                         <p>{item.description}</p>
                         <div className="card-actions justify-end pt-4">
                           <div className="flex justify-between w-full">
@@ -209,7 +221,9 @@ const TabSection = () => {
                         />
                       </figure>
                       <div className="card-body">
-                        <h2 className="card-title">{item.name}</h2>
+                        <h2 className="card-title font-playwrite">
+                          {item.name}
+                        </h2>
                         <p>{item.description}</p>
                         <div className="card-actions justify-end pt-4">
                           <div className="flex justify-between w-full">
@@ -249,7 +263,9 @@ const TabSection = () => {
                         />
                       </figure>
                       <div className="card-body">
-                        <h2 className="card-title">{item.name}</h2>
+                        <h2 className="card-title font-playwrite">
+                          {item.name}
+                        </h2>
                         <p>{item.description}</p>
                         <div className="card-actions justify-end pt-4">
                           <div className="flex justify-between w-full">

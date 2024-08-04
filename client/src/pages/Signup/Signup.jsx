@@ -1,17 +1,18 @@
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { MdEmail } from "react-icons/md";
-import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaEye, FaEyeSlash, FaCamera } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { RiLockPasswordFill } from "react-icons/ri";
 
-import { useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Signup = () => {
-  const { loading, user, createUser } = useAuth();
+  const { loading, user, createUser, updateUserInfo } = useAuth();
   const [show, setShow] = useState(true);
   const [showConfiirm, setShowConfirm] = useState(true);
   const navigate = useNavigate();
@@ -43,11 +44,29 @@ const Signup = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `Hello`,
+          title: `Your account successfully created!`,
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/");
+        updateUserInfo(data.username, data.profile)
+          .then(() => {
+            // Profile updated!
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        // get access token
+        const email = user.email;
+        axios
+          .post("http://localhost:3000/jwt", email, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              navigate("/");
+            }
+          });
         reset();
       })
       .catch((error) => {
@@ -59,7 +78,9 @@ const Signup = () => {
   };
   // force user go to home when login and try to signup
   useEffect(() => {
-    navigate("/");
+    if (user) {
+      navigate("/");
+    }
   }, [navigate, user]);
   if (user || loading) return;
   return (
@@ -85,11 +106,13 @@ const Signup = () => {
           {errors.username && (
             <span className="text-error">This field is required!</span>
           )}
-          <label className="">
+          <label className="input input-bordered flex items-center gap-2">
+            <FaCamera />
             <input
               {...register("profile", { required: true })}
-              type="file"
-              className="file-input w-full "
+              type="text"
+              className="grow"
+              placeholder="Your profile image URL"
             />
           </label>
           {errors.profile && (

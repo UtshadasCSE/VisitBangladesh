@@ -16,7 +16,9 @@ const Story = () => {
   const { isLoading, data: places = [] } = useQuery({
     queryKey: ["places"],
     queryFn: async () => {
-      const res = axios.get("http://localhost:3000/divisions");
+      const res = axios.get("http://localhost:3000/divisions", {
+        withCredentials: true,
+      });
       return (await res).data;
     },
   });
