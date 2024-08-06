@@ -59,7 +59,7 @@ const Signup = () => {
         // ==========get access token
         // const email = user.email;
         // axios
-        //   .post("http://localhost:3000/jwt", email, {
+        //   .post("https://visitbangladesh.onrender.com/jwt", email, {
         //     withCredentials: true,
         //   })
         //   .then((res) => {

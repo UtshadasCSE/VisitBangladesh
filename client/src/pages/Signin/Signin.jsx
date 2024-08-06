@@ -40,7 +40,7 @@ const Signin = () => {
         // const userEmail = user.email;
         // const email = { userEmail };
         // axios
-        //   .post("http://localhost:3000/jwt", email, { withCredentials: true })
+        //   .post("https://visitbangladesh.onrender.com/jwt", email, { withCredentials: true })
         //   .then((res) => {
         //     console.log(res.data);
         //     if (res.data.success) {
@@ -71,7 +71,7 @@ const Signin = () => {
         // ===============get access token
         // const email = user.email;
         // axios
-        //   .post("http://localhost:3000/jwt", email, { withCredentials: true })
+        //   .post("https://visitbangladesh.onrender.com/jwt", email, { withCredentials: true })
         //   .then((res) => {
         //     console.log(res.data);
         //   });

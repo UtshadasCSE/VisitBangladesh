@@ -9,7 +9,7 @@ const HomeBlogs = () => {
   const { isLoading, data: news = [] } = useQuery({
     queryKey: ["news"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/news");
+      const res = await axios.get("https://visitbangladesh.onrender.com/news");
       return res.data;
     },
   });

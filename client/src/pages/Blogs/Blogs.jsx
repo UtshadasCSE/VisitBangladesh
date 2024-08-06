@@ -7,7 +7,7 @@ const Blogs = () => {
   const { isLoading, data: blogs = [] } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/blogs");
+      const res = await axios.get("https://visitbangladesh.onrender.com/blogs");
       return res.data;
     },
   });

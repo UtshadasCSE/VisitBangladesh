@@ -39,12 +39,14 @@ const AddBlogs = () => {
       },
     };
     reset();
-    axios.post("http://localhost:3000/blogs", blogData).then((res) => {
-      console.log(res.data);
-      if (res.data.insertedId) {
-        toast.success("Successfully added!");
-      }
-    });
+    axios
+      .post("https://visitbangladesh.onrender.com/blogs", blogData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          toast.success("Successfully added!");
+        }
+      });
   };
   return (
     <div className="container mx-auto max-sm:w-4/5 font-popins">

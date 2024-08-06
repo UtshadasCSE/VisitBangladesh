@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
   };
   // logout user from  this device
   const logoutUser = async () => {
-    // const { data } = await axios.get("http://localhost:3000/logout", {
+    // const { data } = await axios.get("https://visitbangladesh.onrender.com/logout", {
     //   withCredentials: true,
     // });
     // console.log(data);

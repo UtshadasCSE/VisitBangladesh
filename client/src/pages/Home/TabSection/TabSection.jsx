@@ -9,9 +9,12 @@ const TabSection = () => {
   const { isLoading, data: mustdo = [] } = useQuery({
     queryKey: ["mustdo"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/mustdo", {
-        // withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://visitbangladesh.onrender.com/mustdo",
+        {
+          // withCredentials: true,
+        }
+      );
       return res.data;
     },
   });

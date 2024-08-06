@@ -14,9 +14,12 @@ const DivisionDetails = () => {
   const { isLoading, data: division = [] } = useQuery({
     queryKey: ["division"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:3000/divisions/${name}`, {
-        // withCredentials: true,
-      });
+      const res = await axios.get(
+        `https://visitbangladesh.onrender.com/divisions/${name}`,
+        {
+          // withCredentials: true,
+        }
+      );
       return res.data;
     },
   });

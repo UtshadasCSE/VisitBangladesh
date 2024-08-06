@@ -9,7 +9,9 @@ const Bangladesh = () => {
   const { isLoading, data: bangladesh = [] } = useQuery({
     queryKey: ["bangladesh"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/bangladesh");
+      const res = await axios.get(
+        "https://visitbangladesh.onrender.com/bangladesh"
+      );
       return res.data;
     },
   });
