@@ -19,7 +19,7 @@ const ImageSlider = ({ places }) => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {places.placesImages.map((place) => (
+        {places.placesImages?.map((place) => (
           <SwiperSlide key={place}>
             <img src={place} alt="Places photo" />
           </SwiperSlide>

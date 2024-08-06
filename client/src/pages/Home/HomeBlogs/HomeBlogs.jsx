@@ -1,119 +1,102 @@
 import { CiLocationArrow1 } from "react-icons/ci";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const HomeBlogs = () => {
+  const [showmore, setShowMore] = useState(3);
+  const { isLoading, data: news = [] } = useQuery({
+    queryKey: ["news"],
+    queryFn: async () => {
+      const res = await axios.get("http://localhost:3000/news");
+      return res.data;
+    },
+  });
+  if (isLoading) {
+    return (
+      <>
+        <div className="flex justify-center py-4">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
+      </>
+    );
+  }
+  // date from db as a dd mmm yyyy
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getUTCDate();
+    const month = date.toLocaleString("default", { month: "short" });
+    const year = date.getUTCFullYear();
+
+    return `${day} ${month} ${year}`;
+  };
+  const formattedDate = formatDate(news[0]?.publishDate);
+  // show more btn set function
+  const handleShowMore = () => {
+    setShowMore(news.length);
+  };
   return (
     <div>
       <section className="container mx-auto font-popins">
         <div className=" p-6  space-y-6 sm:space-y-12">
-          <a
+          <Link
+            to={`/news/${news[0]?._id}`}
             rel="noopener noreferrer"
-            href="#"
-            className="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-50"
+            className="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-50 hover:shadow-xl"
           >
             <img
-              src="https://source.unsplash.com/random/480x360"
+              src={news[0]?.Thumbnail}
               alt=""
-              className="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500"
+              className="object-fit w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500"
             />
             <div className="p-6 space-y-2 lg:col-span-5">
               <h3 className="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">
-                Noster tincidunt reprimique ad pro
+                {news[0]?.newsTitle}
               </h3>
               <span className="text-xs dark:text-gray-600">
-                February 19, 2021
+                {/* {format(new Date(dateString), "d MMM yyyy")} */}
+                {formattedDate}
               </span>
-              <p>
-                Ei delenit sensibus liberavisse pri. Quod suscipit no nam. Est
-                in graece fuisset, eos affert putent doctus id.
-              </p>
+              <p>{news[0]?.Description.slice(0, 150)}........</p>
             </div>
-          </a>
+          </Link>
           <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-50 hover:shadow-lg transition"
-            >
-              <img
-                role="presentation"
-                className="object-cover w-full rounded h-44 dark:bg-gray-500"
-                src="https://source.unsplash.com/random/480x360?1"
-              />
-              <div className="p-6 space-y-2">
-                <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
-                  In usu laoreet repudiare legendos
-                </h3>
-                <span className="text-xs dark:text-gray-600">
-                  January 21, 2021
-                </span>
-                <p>
-                  Mei ex aliquid eleifend forensibus, quo ad dicta apeirian
-                  neglegentur, ex has tantas percipit perfecto. At per tempor
-                  albucius perfecto, ei probatus consulatu patrioque mea, ei
-                  vocent delicata indoctum pri.
-                </p>
-              </div>
-            </a>
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-50"
-            >
-              <img
-                role="presentation"
-                className="object-cover w-full rounded h-44 dark:bg-gray-500"
-                src="https://source.unsplash.com/random/480x360?2"
-              />
-              <div className="p-6 space-y-2">
-                <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
-                  In usu laoreet repudiare legendos
-                </h3>
-                <span className="text-xs dark:text-gray-600">
-                  January 22, 2021
-                </span>
-                <p>
-                  Mei ex aliquid eleifend forensibus, quo ad dicta apeirian
-                  neglegentur, ex has tantas percipit perfecto. At per tempor
-                  albucius perfecto, ei probatus consulatu patrioque mea, ei
-                  vocent delicata indoctum pri.
-                </p>
-              </div>
-            </a>
-
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-50 hidden sm:block"
-            >
-              <img
-                role="presentation"
-                className="object-cover w-full rounded h-44 dark:bg-gray-500"
-                src="https://source.unsplash.com/random/480x360?6"
-              />
-              <div className="p-6 space-y-2">
-                <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
-                  In usu laoreet repudiare legendos
-                </h3>
-                <span className="text-xs dark:text-gray-600">
-                  January 26, 2021
-                </span>
-                <p>
-                  Mei ex aliquid eleifend forensibus, quo ad dicta apeirian
-                  neglegentur, ex has tantas percipit perfecto. At per tempor
-                  albucius perfecto, ei probatus consulatu patrioque mea, ei
-                  vocent delicata indoctum pri.
-                </p>
-              </div>
-            </a>
+            {news.slice(0, showmore).map((singleNews) => (
+              <Link
+                to={`/news/${singleNews._id}`}
+                key={singleNews._id}
+                rel="noopener noreferrer"
+                className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-50 hover:shadow-lg transition"
+              >
+                <img
+                  role="presentation"
+                  className="object-fit w-full rounded h-44 dark:bg-gray-500"
+                  src={singleNews.Thumbnail}
+                />
+                <div className="p-6 space-y-2">
+                  <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
+                    {singleNews.newsTitle}
+                  </h3>
+                  <span className="text-xs dark:text-gray-600">
+                    {formatDate(singleNews.publishDate)}
+                  </span>
+                  <p>{singleNews.Description.slice(0, 100)}.......</p>
+                </div>
+              </Link>
+            ))}
           </div>
           <div className="flex justify-center">
-            <button
-              type="button"
-              className="px-6 py-3 flex items-center gap-2 text-sm rounded-md hover:underline dark:bg-gray-50 dark:text-gray-600"
-            >
-              See more posts
-              <CiLocationArrow1 />
-            </button>
+            <div className={showmore === news.length ? "hidden" : ""}>
+              <button
+                onClick={handleShowMore}
+                type="button"
+                className="px-6 py-3 flex items-center gap-2 text-sm rounded-md hover:underline dark:bg-gray-50 dark:text-gray-600"
+              >
+                See more posts
+                <CiLocationArrow1 />
+              </button>
+            </div>
           </div>
         </div>
       </section>

@@ -10,7 +10,7 @@ const TabSection = () => {
     queryKey: ["mustdo"],
     queryFn: async () => {
       const res = await axios.get("http://localhost:3000/mustdo", {
-        withCredentials: true,
+        // withCredentials: true,
       });
       return res.data;
     },
@@ -86,7 +86,10 @@ const TabSection = () => {
               >
                 {info.items.map((item) => (
                   <>
-                    <div className="card bg-base-100 w-96 shadow-xl">
+                    <div
+                      key={item._id}
+                      className="card bg-base-100 w-96 shadow-xl"
+                    >
                       <figure>
                         <img
                           src={item.imagePath}

@@ -43,10 +43,10 @@ const AuthProvider = ({ children }) => {
   };
   // logout user from  this device
   const logoutUser = async () => {
-    const { data } = await axios.get("http://localhost:3000/logout", {
-      withCredentials: true,
-    });
-    console.log(data);
+    // const { data } = await axios.get("http://localhost:3000/logout", {
+    //   withCredentials: true,
+    // });
+    // console.log(data);
     return signOut(auth);
   };
   // observing the current user

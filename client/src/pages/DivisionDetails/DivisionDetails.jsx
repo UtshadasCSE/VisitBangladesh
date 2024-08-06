@@ -15,7 +15,7 @@ const DivisionDetails = () => {
     queryKey: ["division"],
     queryFn: async () => {
       const res = await axios.get(`http://localhost:3000/divisions/${name}`, {
-        withCredentials: true,
+        // withCredentials: true,
       });
       return res.data;
     },
@@ -57,7 +57,7 @@ const DivisionDetails = () => {
         />
         <h2>
           <ul className="font-playwrite text-xl">
-            {division.minorSpot.map((place) => (
+            {division.minorSpot?.map((place) => (
               <li className="list-disc py-1" key={place}>
                 {place}
               </li>

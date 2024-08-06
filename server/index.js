@@ -11,10 +11,11 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    credentials: true,
-  })
+  cors()
+  // {
+  //   origin: ["http://localhost:5173"],
+  // credentials: true,
+  // }
 );
 app.use(cookieParser());
 // ===============MongoDB Start===================
@@ -36,34 +37,36 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
     const placeCollection = client.db("VisitBD").collection("places");
+    const bdCollection = client.db("VisitBD").collection("bangladesh");
     const divisionCollection = client.db("VisitBD").collection("places");
     const mustdoCollection = client.db("VisitBD").collection("mustdo");
     const blogCollection = client.db("VisitBD").collection("blogs");
-    // Auth related API
-    app.post("/jwt", async (req, res) => {
-      const user = req.body;
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "7d",
-      });
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: false, //or you can check it dynamicle "process.env.NOODE_ENV==='production'"
-          sameSite: "none", //or you can check it dynamicle "process.env.NOODE_ENV==='production'"
-        })
-        .send({ success: true });
-    });
-    // clear token after logout
-    app.get("/logout", (req, res) => {
-      res
-        .clearCookie("token", {
-          httpOnly: true,
-          secure: false,
-          sameSite: "none",
-          maxAge: 0,
-        })
-        .send({ success: true });
-    });
+    const newsCollection = client.db("VisitBD").collection("news");
+    //================ Auth related API
+    // app.post("/jwt", async (req, res) => {
+    //   const user = req.body;
+    //   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    //     expiresIn: "7d",
+    //   });
+    //   res
+    //     .cookie("token", token, {
+    //       httpOnly: true,
+    //       secure: false, //or you can check it dynamicle "process.env.NOODE_ENV==='production'"
+    //       sameSite: "none", //or you can check it dynamicle "process.env.NOODE_ENV==='production'"
+    //     })
+    //     .send({ success: true });
+    // });
+    //================== clear token after logout
+    // app.get("/logout", (req, res) => {
+    //   res
+    //     .clearCookie("token", {
+    //       httpOnly: true,
+    //       secure: false,
+    //       sameSite: "none",
+    //       maxAge: 0,
+    //     })
+    //     .send({ success: true });
+    // });
     /* ************Server API Start***************** */
     // get division from db
     app.get("/divisions", async (req, res) => {
@@ -94,6 +97,30 @@ async function run() {
     // get all blog from db
     app.get("/blogs", async (req, res) => {
       const result = await blogCollection.find().toArray();
+      res.send(result);
+    });
+    // my blogs using email
+    app.get("/my-blogs/:email", async (req, res) => {
+      const email = req.params.email;
+      const result = await blogCollection
+        .find({ "author.email": email })
+        .toArray();
+      res.send(result);
+    });
+    // get about bangladesh
+    app.get("/bangladesh", async (req, res) => {
+      const result = await bdCollection.find().toArray();
+      res.send(result);
+    });
+    // save news data on db
+    app.post("/news", async (req, res) => {
+      const newsData = req.body;
+      const result = await newsCollection.insertOne(newsData);
+      res.send(result);
+    });
+    // get all news from db
+    app.get("/news", async (req, res) => {
+      const result = await newsCollection.find().toArray();
       res.send(result);
     });
 

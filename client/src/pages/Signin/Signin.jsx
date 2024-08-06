@@ -34,18 +34,19 @@ const Signin = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(from, { replace: true });
 
         // get access token
-        const userEmail = user.email;
-        const email = { userEmail };
-        axios
-          .post("http://localhost:3000/jwt", email, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.success) {
-              navigate(from, { replace: true });
-            }
-          });
+        // const userEmail = user.email;
+        // const email = { userEmail };
+        // axios
+        //   .post("http://localhost:3000/jwt", email, { withCredentials: true })
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     if (res.data.success) {
+        //
+        //     }
+        //   });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -66,14 +67,14 @@ const Signin = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        // navigate(from, { replace: true });
-        // get access token
-        const email = user.email;
-        axios
-          .post("http://localhost:3000/jwt", email, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-          });
+        navigate(from, { replace: true });
+        // ===============get access token
+        // const email = user.email;
+        // axios
+        //   .post("http://localhost:3000/jwt", email, { withCredentials: true })
+        //   .then((res) => {
+        //     console.log(res.data);
+        //   });
       })
       .catch((error) => {
         // Handle Errors here.

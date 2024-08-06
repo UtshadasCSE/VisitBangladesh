@@ -28,7 +28,7 @@ const Home = () => {
       <Title
         heading={"What's Happening"}
         subHeading={
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit possimus debitis quia animi earum veniam quis, numquam iusto in consequuntur expedita, nesciunt molestias, assumenda obcaecati alias culpa cumque maxime illum!"
+          "News refers to newly received or noteworthy information, especially about recent events. It is a vital part of our daily lives, keeping us informed about what’s happening around the world. News can cover a wide range of topics, including politics, economics, sports, entertainment, science, and more."
         }
       />
       <HomeBlogs />

@@ -11,6 +11,8 @@ import AddBeauties from "../pages/AddBeauties/AddBeauties";
 import AddBlogs from "../pages/AddBlogs/AddBlogs";
 import Blogs from "../pages/Blogs/Blogs";
 import Bangladesh from "../pages/Bangladesh/Bangladesh";
+import AddNews from "../pages/AddNews/AddNews";
+import newsDetails from "./../pages/newsDetails/newsDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: "/add-blogs",
         element: <AddBlogs />,
+      },
+      {
+        path: "/add-news",
+        element: <AddNews />,
+      },
+      {
+        path: "/news/:id",
+        element: <newsDetails />,
       },
       {
         path: "blogs",

@@ -14,7 +14,7 @@ const Blogs = () => {
   if (isLoading) {
     return (
       <>
-        <div className="flex justify-center py-4">
+        <div className="h-screen flex justify-center py-4">
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       </>

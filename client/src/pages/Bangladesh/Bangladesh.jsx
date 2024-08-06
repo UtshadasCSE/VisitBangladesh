@@ -1,31 +1,44 @@
 import Lottie from "lottie-react";
+import { useQuery } from "@tanstack/react-query";
 import animationData from "../../../public/historyAnim.json";
+import axios from "axios";
+// import Carousel from "react-multi-carousel";
+// import "react-multi-carousel/lib/styles.css";
+
 const Bangladesh = () => {
+  const { isLoading, data: bangladesh = [] } = useQuery({
+    queryKey: ["bangladesh"],
+    queryFn: async () => {
+      const res = await axios.get("http://localhost:3000/bangladesh");
+      return res.data;
+    },
+  });
+  if (isLoading) {
+    return (
+      <>
+        <div className="h-screen flex justify-center items-center">
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      </>
+    );
+  }
+
+  console.log(bangladesh);
   return (
     <div>
       <div className="container max-sm:w-4/5 mx-auto font-popins">
         <div className=" py-28 flex flex-col gap-5">
           <div className="lg:p-14 max-sm:p-4 max-sm:text-center flex flex-col justify-center items-center gap-2 rounded-md bg-[#d74a49]">
             <h2 className="font-playwrite font-bold text-2xl text-[#007f4e] border-b-8">
-              Bangladesh
+              {bangladesh[0]?.name}
             </h2>
-            <p className="text-white">
-              One of the most remarkable aspects of Bangladesh is the warmth and
-              hospitality of its people. Visitors are often greeted with open
-              arms and a friendly smile, making their experience in the country
-              truly memorable. Whether you’re exploring its historical
-              landmarks, enjoying its natural beauty, or immersing yourself in
-              its vibrant culture, Bangladesh offers a unique and enriching
-              experience that is sure to leave a lasting impression.If you need
-              more specific information or have any other requests, feel free to
-              let me know! 🌟
-            </p>
+            <p className="text-white">{bangladesh[0]?.heroText}</p>
           </div>
-          <div className="py-7 flex items-center gap-5">
-            <div className="w-1/2">
+          <div className="py-7 flex max-sm:flex-col items-center gap-5">
+            <div className="w-1/2 max-sm:w-full">
               <Lottie animationData={animationData} loop={true} />
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 max-sm:w-full">
               <section className="dark:bg-gray-100 dark:text-gray-800">
                 <div className="container flex flex-col justify-center p-4 mx-auto md:p-8">
                   <p className="p-2 text-sm font-medium tracking-wider text-center uppercase">
@@ -69,7 +82,7 @@ const Bangladesh = () => {
                         <p>
                           Yes, Bangladesh is generally safe for tourists. Like
                           any travel destination, it’s important to stay
-                          informed about local conditions and follow common
+                          informed about local conditioimport and follow common
                           safety practices.
                         </p>
                       </div>
@@ -116,6 +129,27 @@ const Bangladesh = () => {
                   </div>
                 </div>
               </section>
+            </div>
+          </div>
+          <div className="py-5">
+            <div className="w-2/4 mx-auto">
+              <img src={bangladesh[0]?.imageURL} alt="Bangladesh map" />
+            </div>
+            <div>
+              <p className="text-3xl text-center font-playwrite font-black">
+                {bangladesh[0]?.name}
+              </p>
+            </div>
+          </div>
+          <div>
+            <div className="flex flex-col gap-4">
+              <p>{bangladesh[0]?.about}</p>
+              <h3 className="font-semibold font-playwrite text-xl border-b-4 w-max">
+                Total Population:{bangladesh[0]?.totalPopulation} core
+              </h3>
+              <h3 className="font-semibold font-playwrite text-xl border-b-4 w-max">
+                Nationality:{bangladesh[0]?.Nationaliity}
+              </h3>
             </div>
           </div>
         </div>
